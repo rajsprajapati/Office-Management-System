@@ -1,0 +1,11 @@
+<%- include('../layouts/header.ejs') %>
+    <div class="container">
+
+        <!-- Add New Employee Form -->
+        <form action="/department/add" method="POST" class="form-box">
+            <h2>Add New Employee</h2>
+            <input type="text" name="name" placeholder="Full Name" required />
+
+            <button type="submit">Add Department</button>
+        </form>
+<%- include('../layouts/footer.ejs') %>

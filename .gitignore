@@ -1,0 +1,24 @@
+# Node.js
+node_modules/
+.env
+package-lock.json
+# Logs
+logs/
+*.log
+
+public/js/*
+
+middleware/*
+
+views/admin/*
+
+controllers/authController.js
+
+models/admin.js
+
+routes/authRoute.js
+
+# IDE/Editor settings
+.vscode/
+.idea/
+

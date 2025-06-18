@@ -1,0 +1,12 @@
+<%- include('../layouts/header.ejs') %>
+    <div class="container">
+        <h1>Department Management</h1>
+
+        <!-- Add New Employee Form -->
+        <form action="/department/<%= departments._id %>?_method=PUT" method="POST" class="form-box">
+            <h2>Edit New Employee</h2>
+            <input type="text" name="name" placeholder="Full Name" value="<%= departments.name %>" required />
+
+            <button type="submit">Edit Department</button>
+        </form>
+<%- include('../layouts/footer.ejs') %>

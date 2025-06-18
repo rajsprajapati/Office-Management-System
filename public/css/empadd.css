@@ -1,0 +1,46 @@
+/* Scoped to only affect the add employee form */
+.form-box {
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 700px;
+  margin: 0 auto 30px;
+}
+
+.form-box h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #007bff;
+}
+
+.form-box input,
+.form-box select,
+.form-box button {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.form-box input:focus,
+.form-box select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.form-box button {
+  background-color: #28a745;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.form-box button:hover {
+  background-color: #218838;
+}

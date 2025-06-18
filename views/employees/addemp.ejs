@@ -1,0 +1,41 @@
+<%- include('../layouts/header.ejs') %>
+    <div class="container">
+
+        <!-- Add New Employee Form -->
+        <form action="/employees/add" method="POST" class="form-box">
+            <h2>Add New Employee</h2>
+            <input type="text" name="name" placeholder="Full Name" required />
+            <input type="email" name="email" placeholder="Email" required />
+            <input type="text" name="jobTitle" placeholder="Job Title" required />
+
+            <select name="department" required>
+                <option disabled selected>Select Department</option>
+                <% departments.forEach(function(dept) { %>
+                    <option value="<%= dept.name %>">
+                        <%= dept.name %>
+                    </option>
+                    <% }) %>
+            </select>
+
+            <select name="supervisor">
+                <option value="">Select Supervisor (Optional)</option>
+                <% employees.forEach(function(emp) { %>
+                    <option value="<%= emp.name %>">
+                        <%= emp.name %>
+                    </option>
+                    <% }) %>
+            </select>
+
+            <!-- Optional: location fields -->
+            <select name="country" id="country">
+                <% countries.forEach(function(cty){%>
+                    <option placeholder="Country" value="<%= cty.name %>">
+                        <%= cty.name %>
+                    </option>
+                    <%})%>
+            </select>
+
+            
+            <button type="submit">Add Employee</button>
+        </form>
+<%- include('../layouts/footer.ejs') %>

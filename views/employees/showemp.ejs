@@ -1,0 +1,59 @@
+<%- include('../layouts/header.ejs') %>
+  <div class="container">
+    <h2>Employees List</h2>
+    <div class="header">
+      <form action="/employees/search" method="GET">
+        <input type="text" name="Search" placeholder="Search"/>
+        <button type="submit">Search</button>
+      </form>
+      <a href="/employees/new" class="add-employee-btn">Add New Employee</a>
+    </div>
+    <% if (employees.length === 0) { %>
+      <p>No Employees data found for your search.</p>
+    <% } else { %>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Job Title</th>
+          <th>Department</th>
+          <th>Supervisor</th>
+          <th>Country</th>
+          <th>Actions</th>
+        </tr>
+        <% employees.forEach(employee=> { %>
+          <tr>
+            <td>
+              <%= employee.name %>
+            </td>
+            <td>
+              <%= employee.email %>
+            </td>
+            <td>
+              <%= employee.jobTitle %>
+            </td>
+            <td>
+              <%= employee.department  %>
+            </td>
+            <td>
+              <%= employee.supervisor %>
+            </td>
+            <td>
+              <%= employee.country  %>
+            </td>
+            <td>
+              <a href="/employees/<%= employee._id %>/edit">Edit</a> |
+              <form action="/employees/<%= employee._id %>?_method=DELETE" method="POST">
+                <button type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+          <% }); %>
+      </table>
+    <% } %>
+    <div>
+      
+    </div>
+  </div class="container">
+
+<%- include('../layouts/footer.ejs') %>

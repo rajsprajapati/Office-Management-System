@@ -1,0 +1,34 @@
+<%- include('../layouts/header.ejs') %>
+  <div class="container">
+    <h2>Department List</h2>
+    <div class="header">
+      <form action="/department/search" method="GET">
+        <input type="text" name="Search" placeholder="Search"/>
+        <button type="submit">Search</button>
+      </form>
+      <a href="/department/new" class="add-employee-btn">Add New Department</a>
+    </div>
+    <% if (departments.length === 0) { %>
+      <p>No departments found for your search.</p>
+    <% } else { %>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Actions</th>
+        </tr>
+        <% departments.forEach(dep=> { %>
+          <tr>
+            <td> <%= dep.name %> </td>
+            <td>
+              <a href="/department/<%= dep._id %>/edit">Edit</a> |
+              <form action="/department/<%= dep._id %>?_method=DELETE" method="POST">
+                <button type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+          <% }); %>
+      </table>
+    <% } %>
+  </div class="container">
+
+<%- include('../layouts/footer.ejs') %>
