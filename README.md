@@ -7,8 +7,7 @@ This is a simple Office Management System built with **Node.js**, **Express**, *
 ## 📁 Features
 
 - CRUD for Employees and Departments
-- Country, State, City dropdown integration (via CountriesNow API)
-- Admin login/signup with JWT Authentication
+- Country dropdown integration (via CountriesNow API)
 - Server-side pagination, filtering, and search
 - Clean EJS-based frontend with responsive CSS
 - MongoDB + Mongoose for data modeling
@@ -23,9 +22,8 @@ This is a simple Office Management System built with **Node.js**, **Express**, *
 - EJS
 - Axios
 - CountriesNow API
-- JWT for Authentication
 - Method Override (for DELETE/PUT)
-- Tailwind / CSS (custom)
+- CSS custom
 
 ---
 
@@ -34,23 +32,28 @@ This is a simple Office Management System built with **Node.js**, **Express**, *
 1. **Clone the repository**
    ```bash
    git clone https://github.com/rajsprajapati/Office-Management-System.git
-   cd office management system
+   cd office-management-system
 
 2. **Install dependencies**
+    ```bash
     npm install
 
 3. **Create .env file**
+    ```bash
     MONGODB_URI=your_mongodb_connection_string
-    JWT_SECRET=your_jwt_secret_key
 
 4. **Run the app**
+    ```bash
     npm start
 
 5. **Hot-reloading when files change**
+    ```bash
     npm run dev
 
 6. **Employees Data**
+    ```bash
     http://localhost:3500/employees/
 
 7. **Departments Data**
+    ```bash
     http://localhost:3500/department/
