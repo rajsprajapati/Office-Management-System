@@ -6,22 +6,22 @@ import axios from "axios";
 export const getEmployees = async (req, res) => {
     try {
         const employees = await Employee.find().limit(10);
+        // const employees = await Employee.find();
         const departments = await Department.find(); // Assuming you have a Department model
-        const supervisors = await Employee.find({ _id: { $ne: req.params.id } }); // Exclude current employee from supervisors
-        res.render('../views/employees/showemp.ejs', { employees: employees , departments: departments, supervisors: supervisors });
+        res.render('../views/employees/showemp.ejs', { employees: employees, departments: departments });
     } catch (error) {
         res.status(500).json({ message: "Error fetching employees", error });
     }
 };
 
 export const addnewemployee = async (req, res) => {
-    try{
+    try {
         const employees = await Employee.find();
         const departments = await Department.find();
-        const response = await axios.get('https://countriesnow.space/api/v0.1/countries/positions'); 
-        res.render('../views/employees/addemp.ejs', { employees: employees , departments: departments , countries: response.data.data });
-    }catch (error) {
-        res.status(500).json({ message: "Error fetching employee", error });    
+        const response = await axios.get('https://countriesnow.space/api/v0.1/countries/positions');
+        res.render('../views/employees/addemp.ejs', { employees: employees, departments: departments, countries: response.data.data });
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching employee", error });
     }
 };
 
@@ -70,8 +70,30 @@ export const deleteEmployee = async (req, res) => {
 export const searchEmployee = async (req, res) => {
     try {
         const searchTerm = req.query.Search;
-        const employee = await Employee.find({ name: new RegExp(searchTerm, 'i') });
-        res.render('../views/employees/showemp.ejs', { employees: employee });
+        const searchField = req.query.filter;
+        let query = {};
+
+        if (searchTerm) {
+        query.name = new RegExp('^' + searchTerm, 'i');
+        }
+
+        if (searchField) {
+        query.department = new RegExp('^' + searchField + '$', 'i');
+        }
+
+        let employee = await Employee.find(query);
+        if (employee.length === 0) {
+            query = {};
+            if (searchTerm) {
+            query.email = new RegExp('^' + searchTerm, 'i');
+            }
+
+            if (searchField) {
+            query.department = new RegExp('^' + searchField + '$', 'i');
+            }
+            employee = await Employee.find(query);
+        }
+        res.render('../views/employees/showemp.ejs', { employees: employee, departments: await Department.find() });
     } catch (error) {
         res.status(500).json({ message: 'Error searching department', error });
     }
