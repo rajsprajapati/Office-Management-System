@@ -207,6 +207,26 @@ button:hover {
   background-color: #c0392b;
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination .style {
+  color: #007bff;
+  padding: 8px 12px;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  margin: 0 5px;
+  border-radius: 4px;
+}
+
+.pagination .style:hover {
+  background-color: #007bff;
+  color: white;
+}
+
 /* Footer Styling */
 .footer {
   text-align: center;

@@ -29,6 +29,21 @@
           <% }); %>
       </table>
     <% } %>
+    <div class="pagination">
+      <% if (currentPage > 1) { %>
+        <a href="/department?page=<%= currentPage - 1 %>&limit=<%= limit %>" class="left_pagination style">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+      <% } %>
+
+      <span> Page <%= currentPage %> of <%= totalPages %> </span>
+
+      <% if (currentPage < totalPages) { %>
+        <a href="/department?page=<%= currentPage + 1 %>&limit=<%= limit %>" class="right_pagination style">
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      <% } %>
+    </div>
   </div class="container">
 
 <%- include('../layouts/footer.ejs') %>

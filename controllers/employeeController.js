@@ -5,10 +5,23 @@ import axios from "axios";
 // Get all employees
 export const getEmployees = async (req, res) => {
     try {
-        const employees = await Employee.find().limit(10);
-        // const employees = await Employee.find();
-        const departments = await Department.find(); // Assuming you have a Department model
-        res.render('../views/employees/showemp.ejs', { employees: employees, departments: departments });
+        let page = parseInt(req.query.page) || 1;
+        let limit = parseInt(6);
+        let skip = (page - 1) * limit;
+
+        const employees = await Employee.find().skip(skip).limit(limit);
+        const totalEmployees = await Employee.countDocuments(); // For pagination logic
+        const departments = await Department.find();
+
+        const totalPages = Math.ceil(totalEmployees / limit);
+
+        res.render('../views/employees/showemp.ejs', {
+            employees,
+            departments,
+            currentPage: page,
+            totalPages,
+            limit
+        });
     } catch (error) {
         res.status(500).json({ message: "Error fetching employees", error });
     }
@@ -69,6 +82,12 @@ export const deleteEmployee = async (req, res) => {
 
 export const searchEmployee = async (req, res) => {
     try {
+        let page = parseInt(req.query.page) || 1;
+        let limit = parseInt(6);
+        let skip = (page - 1) * limit;
+
+        const departments = await Department.find();
+
         const searchTerm = req.query.Search;
         const searchField = req.query.filter;
         let query = {};
@@ -91,9 +110,18 @@ export const searchEmployee = async (req, res) => {
             if (searchField) {
             query.department = new RegExp('^' + searchField + '$', 'i');
             }
-            employee = await Employee.find(query);
+            employee = await Employee.find(query).skip(skip).limit(limit);
         }
-        res.render('../views/employees/showemp.ejs', { employees: employee, departments: await Department.find() });
+        const totalEmployees = await Employee.countDocuments(query);
+        const totalPages = Math.ceil(totalEmployees / limit);
+
+        res.render('../views/employees/showemp.ejs', { 
+            employees: employee,
+            departments,
+            currentPage: page,
+            totalPages,
+            limit
+        });
     } catch (error) {
         res.status(500).json({ message: 'Error searching department', error });
     }

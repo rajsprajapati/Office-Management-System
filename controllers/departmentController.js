@@ -2,8 +2,21 @@ import Department from "../models/department.js";
 
 export const getDepartment = async (req, res) => {
     try{
-        const department = await Department.find();
-        res.render('../views/departments/showdep.ejs', { departments: department });
+        let page = parseInt(req.query.page) || 1;
+        let limit = parseInt(6);
+        let skip = (page - 1) * limit;
+
+        const department = await Department.find().skip(skip).limit(limit);
+
+        const totalDepartments = await Department.countDocuments();
+        const totalPages = Math.ceil(totalDepartments / limit);
+
+        res.render('../views/departments/showdep.ejs', { 
+            departments: department,
+            currentPage: page,
+            totalPages,
+            limit
+        });
     }
     catch (error){
         res.status(500).json({message: 'Error fetching departmnt',error});
@@ -53,9 +66,21 @@ export const deleteDepartment = async(req, res) => {
 
 export const searchDepartment = async (req, res) => {
     try {
+        let page = parseInt(req.query.page) || 1;
+        let limit = parseInt(6);
+        let skip = (page - 1) * limit;
+
+        const totalEmployees = 1;
+        const totalPages = Math.ceil(totalEmployees / limit);
+
         const searchTerm = req.query.Search;
         const department = await Department.find({ name: new RegExp(searchTerm, 'i') });
-        res.render('../views/departments/showdep.ejs', { departments: department });
+        res.render('../views/departments/showdep.ejs', { 
+            departments: department,
+            currentPage: page,
+            totalPages,
+            limit
+        });
     } catch (error) {
         res.status(500).json({ message: 'Error searching department', error });
     }

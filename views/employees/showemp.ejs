@@ -57,8 +57,20 @@
           <% }); %>
       </table>
     <% } %>
-    <div>
-      
+    <div class="pagination">
+      <% if (currentPage > 1) { %>
+        <a href="/employees?page=<%= currentPage - 1 %>&limit=<%= limit %>" class="left_pagination style">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+      <% } %>
+
+      <span> Page <%= currentPage %> of <%= totalPages %> </span>
+
+      <% if (currentPage < totalPages) { %>
+        <a href="/employees?page=<%= currentPage + 1 %>&limit=<%= limit %>" class="right_pagination style">
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      <% } %>
     </div>
   </div class="container">
 
